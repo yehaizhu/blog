@@ -25,15 +25,14 @@ def init_db():
 def create_db():
 
     u = User()
-    # r = Role()
+    r = Role()
 
 
-    u.email = '8112@qq.com'
-    u.username = 'yehai2'
+    u.email = '@qq.com'
+    u.username = 'yehai'
     u.password = '123456'
-    u.role_id = 2
-    # r.name = 'Teacher'
-    # u.role = r
+    r.name = 'Teacher'
+    u.role = r
 
 
 
