@@ -2,8 +2,9 @@
 import os
 from app import create_app, db
 from app.models import User, Role
-from flask.ext.script import Manager, Shell
-from flask.ext.migrate import Migrate, MigrateCommand
+from flask_migrate import Migrate, MigrateCommand
+from flask_script import Manager, Shell
+
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
@@ -22,23 +23,14 @@ def init_db():
     db.create_all()
 
 @manager.command
-def create_db():
+def deploy():
+    """Run deployment tasks."""
+    from flask_migrate import upgrade
+    from app.models import Role, User
 
-    u = User()
-    r = Role()
+    # migrate database to latest revision
+    upgrade()
 
-
-    u.email = '@qq.com'
-    u.username = 'yehai'
-    u.password = '123456'
-    r.name = 'Teacher'
-    u.role = r
-
-
-
-
-    db.session.add(u)
-    db.session.commit()
 
 if __name__ == '__main__':
     manager.run()
